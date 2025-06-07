@@ -1,0 +1,259 @@
+/* General receipt container styling from your CSS */
+.invoice-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 800px; /* Keep this for general layout */
+    margin: auto;
+    padding: 30px;
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Prevent content from spilling outside rounded corners */
+  }
+  
+  /* NEW: A4 Page Preview styling for within the modal */
+  /* These values are for display within the modal, not the actual PDF output size */
+  .invoice-container.a4-page-preview {
+      /* A4 aspect ratio is approximately 1:1.414 */
+      /* Let's target a width that fits well in a modal, e.g., 700px, and calculate height */
+      width: 700px; /* This will be the effective width of the element for html2canvas */
+      height: 990px; /* 700px * 1.414 = 989.8px, rounded */
+      /* Remove padding, border, shadow for the actual PDF generation part, as jsPDF handles margins */
+      padding: 0; /* Let html2canvas capture the inner content directly */
+      border: none;
+      box-shadow: none;
+      border-radius: 0;
+      overflow-y: auto; /* Allow scrolling if content exceeds A4 height in preview */
+      position: relative; /* Needed for absolute positioning if using elements that go beyond normal flow */
+  }
+  
+  /* Ensure padding is applied to inner content if .invoice-container.a4-page-preview has 0 padding */
+  /* You might want to wrap your invoice content inside a div with specific padding if you set .a4-page-preview padding to 0 */
+  /* For example, add a .invoice-content-wrapper inside .invoice-container and give it the original padding */
+  /* For now, I'll assume you want the full content (including whitespace for margins) to be captured. */
+  
+  /* Reset for PDF generation, if needed. For html2canvas, it captures *what is seen*.
+     So, the .a4-page-preview styles will dictate what html2canvas captures. */
+  
+  /* Header Section from your CSS */
+  .invoice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    padding-left: 30px; /* Add padding here to match original invoice-container padding */
+    padding-right: 30px;
+  }
+  
+  /* Logo styling from your CSS (for an img tag) */
+  .logo img {
+    width: 80px;
+    height: auto;
+  }
+  
+  /* Styling for the inline SVG to match your desired logo size */
+  .logo svg {
+      width: 220px;
+      height: auto;
+  }
+  
+  /* Company Info from your CSS */
+  .company-info {
+    text-align: right;
+  }
+  
+  .company-info h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #007bff;
+  }
+  
+  /* Tagline from your CSS */
+  .tagline {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  /* Invoice Title from your CSS */
+  .invoice-title {
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 20px 0;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Table Headers and Data Alignment from your CSS */
+  th, td {
+    text-align: center;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+  }
+  
+  /* Charges Section Heading (similar to your h5) */
+  .charges-section h5 {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 5px;
+      color: #555;
+      padding-left: 30px; /* Add padding here */
+      padding-right: 30px;
+  }
+  
+  /* Charges Table Specifics */
+  .table {
+      width: calc(100% - 60px); /* Adjust for 30px padding on each side */
+      margin: 15px 30px 0 30px; /* Top, Right, Bottom, Left */
+      border-collapse: collapse;
+  }
+  
+  .table thead th {
+      background-color: #f8f9fa;
+      font-weight: bold;
+      color: #333;
+  }
+  
+  /* Section Layout from your CSS */
+  .section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 10px 30px; /* Apply padding here for sections */
+  }
+  
+  .section h5 {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 5px;
+      color: #555;
+  }
+  
+  .left, .right {
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .left p, .right p {
+      margin-bottom: 5px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+  }
+  
+  /* Total Amount styling from your CSS */
+  .total-row td.total p {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: green;
+    text-align: center;
+    margin: 0;
+  }
+  
+  /* Signature Area */
+  .signature-area {
+    margin-top: 30px;
+    padding-right: 30px; /* Apply padding here */
+  }
+  
+  .signature-line {
+    border-top: 1px solid #000;
+    padding-top: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
+    min-width: 150px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .signature-area p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #555;
+    font-style: italic;
+  }
+  
+  /* Footer Note from your CSS */
+  .footer-note {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 30px;
+    line-height: 1.3;
+    padding: 0 30px; /* Apply padding here */
+  }
+  
+  /* Modal Specific Styles */
+  .modal-body {
+    padding: 0;
+    overflow: hidden; /* Hide overflow here, the a4-page-preview handles its own scrolling */
+    display: flex; /* To center the A4 preview */
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f2f5; /* Light grey background for modal body to highlight the "page" */
+  }
+  
+  .modal-dialog {
+      max-width: fit-content; /* Allow modal to shrink to fit the A4 preview, but not exceed screen */
+      margin: 1.75rem auto; /* Default Bootstrap margin */
+  }
+  
+  /* Notification Styles (Your provided notification styles) */
+  .notification-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1050;
+    min-width: 280px;
+    max-width: 90%;
+  }
+  
+  .notification-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+  
+  .notification-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+  
+  .notification-message {
+    flex-grow: 1;
+    margin-right: 15px;
+  }
+  
+  .notification-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: inherit;
+    cursor: pointer;
+    padding: 0 5px;
+  }
+  
+  /* Media query from your CSS */
+  @media (max-width: 576px) {
+    .notification-container {
+      font-size: 0.9rem;
+      padding: 10px 20px;
+    }
+  }

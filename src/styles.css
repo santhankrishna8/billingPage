@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+/* src/styles.css */
+
+/* Basic styling for consistent look */
+body {
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f8f9fa; /* Light background for the whole page */
+  }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

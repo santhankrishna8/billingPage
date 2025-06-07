@@ -1,0 +1,83 @@
+    <!-- src/app/receipt-form/receipt-form.component.html -->
+    <div class="card shadow-sm p-4 mb-4 w-100" style="max-width: 700px;">
+        <h2 class="card-title text-center mb-4 text-primary">Advance Receipt</h2>
+  
+        <!-- Error and Success Messages -->
+        <div *ngIf="error" class="alert alert-danger" role="alert">
+          <strong>Error!</strong> {{ error }}
+        </div>
+        <div *ngIf="successMessage" class="alert alert-success" role="alert">
+          <strong>Success!</strong> {{ successMessage }}
+        </div>
+  
+        <form (ngSubmit)="submitReceipt()">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="name" class="form-label">Customer Name <span class="text-danger">*</span></label>
+              <input type="text" id="name" [(ngModel)]="name" name="name" class="form-control" required placeholder="John Doe">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="aadharNumber" class="form-label">Aadhar Card Number</label>
+              <input type="text" id="aadharNumber" [(ngModel)]="aadharNumber" name="aadharNumber" class="form-control" placeholder="XXXX XXXX XXXX">
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="mobileNumber" class="form-label">Mobile Number <span class="text-danger">*</span></label>
+              <input type="tel" id="mobileNumber" [(ngModel)]="mobileNumber" name="mobileNumber" class="form-control" required placeholder="9876543210">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="phoneNumber" class="form-label">Phone Number (Optional)</label>
+              <input type="tel" id="phoneNumber" [(ngModel)]="phoneNumber" name="phoneNumber" class="form-control" placeholder="0123456789">
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <textarea id="address" [(ngModel)]="address" name="address" class="form-control" rows="2" placeholder="123, Main St, City, State"></textarea>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="state" class="form-label">State <span class="text-danger">*</span></label>
+            <input type="text" id="state" [(ngModel)]="state" name="state" class="form-control" required placeholder="state... ">
+          </div>
+  
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="paymentType" class="form-label">Payment Type</label>
+              <select id="paymentType" [(ngModel)]="paymentType" name="paymentType" class="form-select">
+                <option *ngFor="let type of paymentTypes" [value]="type">{{ type }}</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="roomNo" class="form-label">Room No. <span class="text-danger">*</span></label>
+              <input type="text" id="roomNo" [(ngModel)]="roomNo" name="roomNo" class="form-control" required placeholder="101A">
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="checkInTime" class="form-label">Check-in Time <span class="text-danger">*</span></label>
+              <input type="datetime-local" id="checkInTime" [(ngModel)]="checkInTime" name="checkInTime" class="form-control" required>
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="rent" class="form-label">Rent <span class="text-danger">*</span></label>
+            <input type="number" id="rent" [(ngModel)]="rent" name="rent" class="form-control" required min="0">
+          </div>
+          <div class="mb-3">
+            <label for="advance" class="form-label">Advance<span class="text-danger">*</span></label>
+            <input type="number" id="advance" [(ngModel)]="advance" name="advance" class="form-control" required min="0">
+          </div>
+          <div class="mb-3">
+            <label for="refund" class="form-label">Refund <span class="text-danger">*</span></label>
+            <input type="number" id="refund" [(ngModel)]="refund" name="refund" class="form-control" required min="0">
+          </div>
+  
+          <button type="submit" class="btn btn-primary w-100" [disabled]="loading">
+            {{ loading ? 'Submitting...' : 'Generate & Save Receipt' }}
+          </button>
+        </form>
+      </div>
+      
