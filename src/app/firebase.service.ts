@@ -145,6 +145,29 @@ export class FirebaseService implements OnDestroy {
     );
   }
 
+  generateBillId(): string {
+    const timestamp = new Date();
+
+    // Format the timestamp as YYYYMMDDHHMMSS
+    const year = timestamp.getFullYear();
+    const month = (timestamp.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-indexed
+    const day = timestamp.getDate().toString().padStart(2, '0');
+    const hours = timestamp.getHours().toString().padStart(2, '0');
+    const minutes = timestamp.getMinutes().toString().padStart(2, '0');
+    const seconds = timestamp.getSeconds().toString().padStart(2, '0');
+    const milliseconds = timestamp.getMilliseconds().toString().padStart(3, '0'); // Add milliseconds for more uniqueness
+
+    const datePart = `${year}${month}${day}${hours}${minutes}${seconds}${milliseconds}`;
+
+    // Generate a short random alphanumeric string
+    // Math.random() gives a number between 0 and 1
+    // .toString(36) converts it to a base-36 string (0-9, a-z)
+    // .substring(2, 9) takes a portion of it (e.g., '0.abcdefg' -> 'abcdefg')
+    const randomPart = Math.random().toString(36).substring(2, 9);
+
+    return `BILL_${datePart}_${randomPart}`.toUpperCase(); // Add a prefix for clarity, and uppercase for consistency
+  }
+
   /**
    * Adds a new receipt record to Firestore.
    * @param receipt The receipt object to add (excluding 'id' and 'createdAt').

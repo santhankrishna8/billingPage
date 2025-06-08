@@ -3,11 +3,12 @@ import { FirebaseService } from '../../firebase.service';
 import { Receipt } from '../../models/receipt';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-final-receipt',
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule],     
   templateUrl: './final-receipt.component.html',
   styleUrl: './final-receipt.component.css'
 })
@@ -40,7 +41,7 @@ export class FinalReceiptComponent {
   
         private errorSubscription: Subscription | null = null;
   
-        constructor(private firebaseService: FirebaseService) {}
+        constructor(private firebaseService: FirebaseService,private router:Router) {}
   
         ngOnInit(): void {
           // Subscribe to general errors from the FirebaseService
@@ -87,6 +88,7 @@ export class FinalReceiptComponent {
             await this.firebaseService.addReceipt(newReceipt);
             this.successMessage = 'Receipt added successfully!';
             this.resetForm(); // Clear form after successful submission
+            this.router.navigate(['/list']);
           } catch (err: any) {
             this.error = `Failed to add receipt: ${err.message}`;
             console.error('Error submitting receipt:', err);

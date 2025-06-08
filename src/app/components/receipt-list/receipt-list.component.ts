@@ -28,6 +28,8 @@ import { FormsModule } from '@angular/forms';
 
       @ViewChild('receiptPdfContent') receiptPdfContent!: ElementRef; // Reference to the div for PDF content
 
+      
+
       private subscriptions: Subscription[] = []; // To manage all subscriptions
 
       constructor(private firebaseService: FirebaseService) {
@@ -123,6 +125,8 @@ import { FormsModule } from '@angular/forms';
         const date = new Date(isoString);
         return date.toLocaleString(); // Uses user's locale for friendly format
       }
+
+      
 
       // Helper to format date for display
       formatDate(isoString: string): string {

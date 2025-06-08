@@ -158,6 +158,8 @@
   
   /* Signature Area */
   .signature-area {
+    display: flex;
+    flex-direction: column;
     margin-top: 30px;
     padding-right: 30px; /* Apply padding here */
   }
@@ -167,7 +169,7 @@
     padding-top: 5px;
     margin-bottom: 5px;
     display: inline-block;
-    min-width: 150px;
+    min-width: 100px;
     font-weight: bold;
     color: #333;
   }
