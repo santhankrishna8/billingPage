@@ -84,8 +84,8 @@ import { Router } from '@angular/router';
         try {
           await this.firebaseService.addReceipt(newReceipt);
           this.successMessage = 'Receipt added successfully!';
-          this.router.navigate(['/list']);
           this.resetForm(); // Clear form after successful submission
+          this.router.navigate(['/list']);
         } catch (err: any) {
           this.error = `Failed to add receipt: ${err.message}`;
           console.error('Error submitting receipt:', err);
